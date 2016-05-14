@@ -533,19 +533,19 @@ public class Application {
 		return file.getParent();
 	}
 
-	private void initializeFont() {
-	/*	Font sourceFont = UIManager.getFont("Label.font"); //$NON-NLS-1$
-		int size = sourceFont.getSize();
+	/*private void initializeFont() {
+			Font sourceFont = UIManager.getFont("Label.font"); //$NON-NLS-1$
+			int size = sourceFont.getSize();
+			
+			System.out.println("Default font size: " + size);
+			System.out.println("Expected font size: 12");
+			
+			double scaleFactor = (double) (size / 12.0);
+			System.out.println("Setting scale factor: " + scaleFactor);
+			
+			//TerminalConfig.setScreenScaleFactor(scaleFactor);
 		
-		System.out.println("Default font size: " + size);
-		System.out.println("Expected font size: 12");
-		
-		double scaleFactor = (double) (size / 12.0);
-		System.out.println("Setting scale factor: " + scaleFactor);
-		
-		//TerminalConfig.setScreenScaleFactor(scaleFactor);
-*/		
-		
+
 		String uiFont = TerminalConfig.getUiDefaultFont();
 		int stylePlain = Font.PLAIN;
 		int styleBold = Font.BOLD;
@@ -559,6 +559,8 @@ public class Application {
 
 		FontUIResource font = new FontUIResource(fontPlain);
 		FontUIResource boldFont = new FontUIResource(fontBold);
+
+		setUIFont(font, boldFont);
 
 		UIManager.put("ArrowButton.size", font); //$NON-NLS-1$
 		UIManager.put("OptionPane.buttonFont", font); //$NON-NLS-1$ //$NON-NLS-2$
@@ -593,5 +595,29 @@ public class Application {
 		UIManager.put("ToolBar.font", font); //$NON-NLS-1$
 		UIManager.put("ToolTip.font", font); //$NON-NLS-1$
 		UIManager.put("Tree.font", font); //$NON-NLS-1$
+		}*/
+
+	private void initializeFont() {
+		java.util.Enumeration keys = UIManager.getDefaults().keys();
+		while (keys.hasMoreElements()) {
+
+			Object key = keys.nextElement();
+			Object value = UIManager.get(key);
+
+			if (value != null && value instanceof javax.swing.plaf.FontUIResource) {
+				javax.swing.plaf.FontUIResource f = (FontUIResource) value;
+				Font font = new Font(f.getFontName(), f.getStyle(), PosUIManager.getDefaultFontSize());
+				UIManager.put(key, new javax.swing.plaf.FontUIResource(font));
+				
+				/*	Font fontBold = new Font(f.getFontName(), Font.BOLD, PosUIManager.getDefaultFontSize());
+
+				if (key.equals("TitledBorder.font")) {
+					UIManager.put(key, new javax.swing.plaf.FontUIResource(fontBold));
+				}
+				else {
+					UIManager.put(key, new javax.swing.plaf.FontUIResource(font));
+				}*/
+			}
+		}
 	}
 }
