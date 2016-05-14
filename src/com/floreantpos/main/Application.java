@@ -35,7 +35,9 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
+import javax.swing.plaf.FontUIResource;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.RandomUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -63,6 +65,7 @@ import com.floreantpos.model.dao.PrinterConfigurationDAO;
 import com.floreantpos.model.dao.RestaurantDAO;
 import com.floreantpos.model.dao.TerminalDAO;
 import com.floreantpos.posserver.PosServer;
+import com.floreantpos.swing.PosUIManager;
 import com.floreantpos.ui.dialog.POSMessageDialog;
 import com.floreantpos.ui.dialog.PasswordEntryDialog;
 import com.floreantpos.ui.views.LoginView;
@@ -531,7 +534,7 @@ public class Application {
 	}
 
 	private void initializeFont() {
-		Font sourceFont = UIManager.getFont("Label.font"); //$NON-NLS-1$
+	/*	Font sourceFont = UIManager.getFont("Label.font"); //$NON-NLS-1$
 		int size = sourceFont.getSize();
 		
 		System.out.println("Default font size: " + size);
@@ -540,55 +543,55 @@ public class Application {
 		double scaleFactor = (double) (size / 12.0);
 		System.out.println("Setting scale factor: " + scaleFactor);
 		
-		TerminalConfig.setScreenScaleFactor(scaleFactor);
+		//TerminalConfig.setScreenScaleFactor(scaleFactor);
+*/		
 		
-		
-//		String uiFont = TerminalConfig.getUiDefaultFont();
-//		int stylePlain = Font.PLAIN;
-//		int styleBold = Font.BOLD;
-//		if (StringUtils.isEmpty(uiFont)) {
-//			Font sourceFont = UIManager.getFont("Label.font"); //$NON-NLS-1$
-//			uiFont = sourceFont.getName();
-//			stylePlain = sourceFont.getStyle();
-//		}
-//		Font fontPlain = new Font(uiFont, stylePlain, PosUIManager.getDefaultFontSize());
-//		Font fontBold = new Font(uiFont, styleBold, PosUIManager.getDefaultFontSize());
-//
-//		FontUIResource font = new FontUIResource(fontPlain);
-//		FontUIResource boldFont = new FontUIResource(fontBold);
-//
-//		UIManager.put("ArrowButton.size", font); //$NON-NLS-1$
-//		UIManager.put("OptionPane.buttonFont", font); //$NON-NLS-1$ //$NON-NLS-2$
-//		UIManager.put("Button.font", font); //$NON-NLS-1$
-//		UIManager.put("ToggleButton.font", font); //$NON-NLS-1$
-//		UIManager.put("RadioButton.font", font); //$NON-NLS-1$
-//		UIManager.put("CheckBox.font", font); //$NON-NLS-1$
-//		UIManager.put("ColorChooser.font", font); //$NON-NLS-1$
-//		UIManager.put("ComboBox.font", font); //$NON-NLS-1$
-//		UIManager.put("Label.font", font); //$NON-NLS-1$
-//		UIManager.put("List.font", font); //$NON-NLS-1$
-//		UIManager.put("MenuBar.font", font); //$NON-NLS-1$
-//		UIManager.put("MenuItem.font", font); //$NON-NLS-1$
-//		UIManager.put("RadioButtonMenuItem.font", font); //$NON-NLS-1$
-//		UIManager.put("CheckBoxMenuItem.font", font); //$NON-NLS-1$
-//		UIManager.put("Menu.font", font); //$NON-NLS-1$
-//		UIManager.put("PopupMenu.font", font); //$NON-NLS-1$
-//		UIManager.put("OptionPane.font", font); //$NON-NLS-1$
-//		UIManager.put("Panel.font", font); //$NON-NLS-1$
-//		UIManager.put("ProgressBar.font", font); //$NON-NLS-1$
-//		UIManager.put("ScrollPane.font", font); //$NON-NLS-1$
-//		UIManager.put("Viewport.font", font); //$NON-NLS-1$
-//		UIManager.put("TabbedPane.font", font); //$NON-NLS-1$
-//		UIManager.put("Table.font", font); //$NON-NLS-1$
-//		UIManager.put("TableHeader.font", font); //$NON-NLS-1$
-//		UIManager.put("TextField.font", font); //$NON-NLS-1$
-//		UIManager.put("PasswordField.font", font); //$NON-NLS-1$
-//		UIManager.put("TextArea.font", font); //$NON-NLS-1$
-//		UIManager.put("TextPane.font", font); //$NON-NLS-1$
-//		UIManager.put("EditorPane.font", font); //$NON-NLS-1$
-//		UIManager.put("TitledBorder.font", boldFont); //$NON-NLS-1$
-//		UIManager.put("ToolBar.font", font); //$NON-NLS-1$
-//		UIManager.put("ToolTip.font", font); //$NON-NLS-1$
-//		UIManager.put("Tree.font", font); //$NON-NLS-1$
+		String uiFont = TerminalConfig.getUiDefaultFont();
+		int stylePlain = Font.PLAIN;
+		int styleBold = Font.BOLD;
+		if (StringUtils.isEmpty(uiFont)) {
+			Font sourceFont = UIManager.getFont("Label.font"); //$NON-NLS-1$
+			uiFont = sourceFont.getName();
+			stylePlain = sourceFont.getStyle();
+		}
+		Font fontPlain = new Font(uiFont, stylePlain, PosUIManager.getDefaultFontSize());
+		Font fontBold = new Font(uiFont, styleBold, PosUIManager.getDefaultFontSize());
+
+		FontUIResource font = new FontUIResource(fontPlain);
+		FontUIResource boldFont = new FontUIResource(fontBold);
+
+		UIManager.put("ArrowButton.size", font); //$NON-NLS-1$
+		UIManager.put("OptionPane.buttonFont", font); //$NON-NLS-1$ //$NON-NLS-2$
+		UIManager.put("Button.font", font); //$NON-NLS-1$
+		UIManager.put("ToggleButton.font", font); //$NON-NLS-1$
+		UIManager.put("RadioButton.font", font); //$NON-NLS-1$
+		UIManager.put("CheckBox.font", font); //$NON-NLS-1$
+		UIManager.put("ColorChooser.font", font); //$NON-NLS-1$
+		UIManager.put("ComboBox.font", font); //$NON-NLS-1$
+		UIManager.put("Label.font", font); //$NON-NLS-1$
+		UIManager.put("List.font", font); //$NON-NLS-1$
+		UIManager.put("MenuBar.font", font); //$NON-NLS-1$
+		UIManager.put("MenuItem.font", font); //$NON-NLS-1$
+		UIManager.put("RadioButtonMenuItem.font", font); //$NON-NLS-1$
+		UIManager.put("CheckBoxMenuItem.font", font); //$NON-NLS-1$
+		UIManager.put("Menu.font", font); //$NON-NLS-1$
+		UIManager.put("PopupMenu.font", font); //$NON-NLS-1$
+		UIManager.put("OptionPane.font", font); //$NON-NLS-1$
+		UIManager.put("Panel.font", font); //$NON-NLS-1$
+		UIManager.put("ProgressBar.font", font); //$NON-NLS-1$
+		UIManager.put("ScrollPane.font", font); //$NON-NLS-1$
+		UIManager.put("Viewport.font", font); //$NON-NLS-1$
+		UIManager.put("TabbedPane.font", font); //$NON-NLS-1$
+		UIManager.put("Table.font", font); //$NON-NLS-1$
+		UIManager.put("TableHeader.font", font); //$NON-NLS-1$
+		UIManager.put("TextField.font", font); //$NON-NLS-1$
+		UIManager.put("PasswordField.font", font); //$NON-NLS-1$
+		UIManager.put("TextArea.font", font); //$NON-NLS-1$
+		UIManager.put("TextPane.font", font); //$NON-NLS-1$
+		UIManager.put("EditorPane.font", font); //$NON-NLS-1$
+		UIManager.put("TitledBorder.font", boldFont); //$NON-NLS-1$
+		UIManager.put("ToolBar.font", font); //$NON-NLS-1$
+		UIManager.put("ToolTip.font", font); //$NON-NLS-1$
+		UIManager.put("Tree.font", font); //$NON-NLS-1$
 	}
 }
