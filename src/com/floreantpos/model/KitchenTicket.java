@@ -234,6 +234,7 @@ public class KitchenTicket extends BaseKitchenTicket {
 				KitchenTicketItem item = new KitchenTicketItem();
 				item.setMenuItemCode(ticketItem.getItemCode());
 				item.setMenuItemName(ticketItem.getNameDisplay());
+				item.setMenuItemTranslatedName(ticketItem.getItemTranslatedName());
 				if (ticketItem.getMenuItem() == null) {
 					item.setMenuItemGroupName("MISC.");
 					item.setMenuItemGroupId(1001);

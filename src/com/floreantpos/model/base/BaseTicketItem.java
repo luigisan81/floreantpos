@@ -85,6 +85,7 @@ public abstract class BaseTicketItem  implements Comparable, Serializable {
 		protected java.lang.Integer itemCount;
 		protected java.lang.Double itemQuantity;
 		protected java.lang.String name;
+		protected java.lang.String itemTranslatedName;
 		protected java.lang.String itemUnitName;
 		protected java.lang.String groupName;
 		protected java.lang.String categoryName;
@@ -205,7 +206,20 @@ public abstract class BaseTicketItem  implements Comparable, Serializable {
 		this.name = name;
 	}
 
+	/**
+	 * Return the value associated with the column: ITEM_TRANSLATED_NAME
+	 */
+	public java.lang.String getItemTranslatedName () {
+					return itemTranslatedName;
+			}
 
+	/**
+	 * Set the value related to the column: ITEM_TRANSLATED_NAME
+	 * @param name the ITEM_TRANSLATED_NAME value
+	 */
+	public void setItemTranslatedName (java.lang.String itemTranslatedName) {
+		this.itemTranslatedName = itemTranslatedName;
+	}
 
 	/**
 	 * Return the value associated with the column: ITEM_UNIT_NAME

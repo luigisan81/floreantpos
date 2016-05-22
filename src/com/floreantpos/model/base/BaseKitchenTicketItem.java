@@ -23,6 +23,7 @@ public abstract class BaseKitchenTicketItem  implements Comparable, Serializable
 	public static String PROP_FRACTIONAL_UNIT = "fractionalUnit";
 	public static String PROP_MENU_ITEM_GROUP_NAME = "menuItemGroupName";
 	public static String PROP_MENU_ITEM_NAME = "menuItemName";
+	public static String PROP_MENU_ITEM_TRANSLATED_NAME = "menuItemTranslatedName";
 	public static String PROP_MENU_ITEM_GROUP_ID = "menuItemGroupId";
 	public static String PROP_ID = "id";
 	public static String PROP_FRACTIONAL_QUANTITY = "fractionalQuantity";
@@ -57,6 +58,7 @@ public abstract class BaseKitchenTicketItem  implements Comparable, Serializable
 		protected java.lang.Boolean cookable;
 		protected java.lang.String menuItemCode;
 		protected java.lang.String menuItemName;
+		protected java.lang.String menuItemTranslatedName;
 		protected java.lang.Integer menuItemGroupId;
 		protected java.lang.String menuItemGroupName;
 		protected java.lang.Integer quantity;
@@ -140,7 +142,20 @@ public abstract class BaseKitchenTicketItem  implements Comparable, Serializable
 		this.menuItemName = menuItemName;
 	}
 
+	/**
+	 * Return the value associated with the column: MENU_ITEM_TRANSLATED_NAME
+	 */
+	public java.lang.String getMenuItemTranslatedName () {
+		return menuItemTranslatedName;
+	}
 
+	/**
+	 * Set the value related to the column: MENU_ITEM_TRANSLATED_NAME
+	 * @param menuItemTranslatedName the MENU_ITEM_TRANSLATED_NAME value
+	 */
+	public void setMenuItemTranslatedName (java.lang.String menuItemTranslatedName) {
+		this.menuItemTranslatedName = menuItemTranslatedName;
+	}
 
 	/**
 	 * Return the value associated with the column: MENU_ITEM_GROUP_ID
