@@ -77,6 +77,10 @@ public class MenuModifier extends BaseMenuModifier {
 		return super.getName();
 	}
 
+	public String getItemTranslatedName() {
+		return getTranslatedName();
+	}
+
 	@Override
 	public String toString() {
 		return getName();

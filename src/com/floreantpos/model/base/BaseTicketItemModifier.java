@@ -25,6 +25,7 @@ public abstract class BaseTicketItemModifier  implements Comparable, Serializabl
 	public static String PROP_TAX_AMOUNT = "taxAmount"; //$NON-NLS-1$
 	public static String PROP_GROUP_ID = "groupId"; //$NON-NLS-1$
 	public static String PROP_NAME = "name"; //$NON-NLS-1$
+	public static String PROP_ITEM_TRANSLATED_NAME = "itemTranslatedName"; //$NON-NLS-1$
 	public static String PROP_SHOULD_PRINT_TO_KITCHEN = "shouldPrintToKitchen"; //$NON-NLS-1$
 	public static String PROP_PRINTED_TO_KITCHEN = "printedToKitchen"; //$NON-NLS-1$
 	public static String PROP_ID = "id"; //$NON-NLS-1$
@@ -60,6 +61,7 @@ public abstract class BaseTicketItemModifier  implements Comparable, Serializabl
 		protected java.lang.Integer groupId;
 		protected java.lang.Integer itemCount;
 		protected java.lang.String name;
+		protected java.lang.String itemTranslatedName;
 		protected java.lang.Double unitPrice;
 		protected java.lang.Double taxRate;
 		protected java.lang.Integer modifierType;
@@ -163,6 +165,20 @@ public abstract class BaseTicketItemModifier  implements Comparable, Serializabl
 		this.name = name;
 	}
 
+	/**
+	 * Return the value associated with the column: MODIFIER_ITEM_TRANSLATED_NAME
+	 */
+	public java.lang.String getItemTranslatedName () {
+					return itemTranslatedName;
+			}
+
+	/**
+	 * Set the value related to the column: MODIFIER_NAME
+	 * @param name the MODIFIER_ITEM_TRANSLATED_NAME value
+	 */
+	public void setItemTranslatedName (java.lang.String itemTranslatedName) {
+		this.itemTranslatedName = itemTranslatedName;
+	}
 
 
 	/**

@@ -230,6 +230,7 @@ public class TicketItem extends BaseTicketItem implements ITicketItem {
 		ticketItemModifier.setGroupId(menuModifier.getModifierGroup().getId());
 		ticketItemModifier.setItemCount(1);
 		ticketItemModifier.setName(menuModifier.getDisplayName());
+		ticketItemModifier.setItemTranslatedName(menuModifier.getItemTranslatedName());
 
 		//ticketItemModifier.setUnitPrice(menuModifier.getExtraPrice());
 		ticketItemModifier.setUnitPrice(menuModifier.getExtraPriceByOrderType(this.getTicket().getOrderType()));
