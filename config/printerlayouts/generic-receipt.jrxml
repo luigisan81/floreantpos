@@ -12,6 +12,7 @@
 	<parameter name="data" class="java.lang.String" isForPrompting="false"/>
 	<field name="itemQty" class="java.lang.String"/>
 	<field name="itemName" class="java.lang.String"/>
+	<field name="itemTranslatedName" class="java.lang.String"/>
 	<field name="itemNo" class="java.lang.String"/>
 	<background>
 		<band splitType="Stretch"/>
