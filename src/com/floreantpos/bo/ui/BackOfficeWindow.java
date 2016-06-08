@@ -39,6 +39,7 @@ import javax.swing.JMenuBar;
 
 import com.floreantpos.Messages;
 import com.floreantpos.actions.AboutAction;
+import com.floreantpos.bo.actions.AttendanceHistoryAction;
 import com.floreantpos.bo.actions.CategoryExplorerAction;
 import com.floreantpos.bo.actions.ConfigureRestaurantAction;
 import com.floreantpos.bo.actions.CookingInstructionExplorerAction;
@@ -47,6 +48,7 @@ import com.floreantpos.bo.actions.CreditCardReportAction;
 import com.floreantpos.bo.actions.DataExportAction;
 import com.floreantpos.bo.actions.DataImportAction;
 import com.floreantpos.bo.actions.DrawerPullReportExplorerAction;
+import com.floreantpos.bo.actions.EmployeeAttendanceAction;
 import com.floreantpos.bo.actions.GroupExplorerAction;
 import com.floreantpos.bo.actions.HourlyLaborReportAction;
 import com.floreantpos.bo.actions.ItemExplorerAction;
@@ -66,6 +68,7 @@ import com.floreantpos.bo.actions.SalesReportAction;
 import com.floreantpos.bo.actions.ServerProductivityReportAction;
 import com.floreantpos.bo.actions.ShiftExplorerAction;
 import com.floreantpos.bo.actions.TaxExplorerAction;
+import com.floreantpos.bo.actions.TicketExplorerAction;
 import com.floreantpos.bo.actions.UserExplorerAction;
 import com.floreantpos.bo.actions.UserTypeExplorerAction;
 import com.floreantpos.bo.actions.ViewGratuitiesAction;
@@ -183,6 +186,7 @@ public class BackOfficeWindow extends javax.swing.JFrame {
 		reportMenu.add(new OpenTicketSummaryReportAction());
 		reportMenu.add(new HourlyLaborReportAction());
 		reportMenu.add(new PayrollReportAction());
+		reportMenu.add(new EmployeeAttendanceAction());
 		reportMenu.add(new KeyStatisticsSalesReportAction());
 		reportMenu.add(new SalesAnalysisReportAction());
 		reportMenu.add(new CreditCardReportAction());
@@ -213,8 +217,8 @@ public class BackOfficeWindow extends javax.swing.JFrame {
 		explorerMenu.add(new TaxExplorerAction());
 		explorerMenu.add(new CustomPaymentBrowserAction());
 		explorerMenu.add(new DrawerPullReportExplorerAction());
-		//explorerMenu.add(new TicketExplorerAction());
-		
+		explorerMenu.add(new TicketExplorerAction());
+		explorerMenu.add(new AttendanceHistoryAction());
 
 		OrderServiceExtension plugin = (OrderServiceExtension) ExtensionManager.getPlugin(OrderServiceExtension.class);
 		if (plugin == null) {
@@ -255,7 +259,7 @@ public class BackOfficeWindow extends javax.swing.JFrame {
 		tabbedPane.setTabShape(JideTabbedPane.SHAPE_WINDOWS);
 		tabbedPane.setShowCloseButtonOnTab(true);
 		tabbedPane.setTabInsets(new Insets(5, 5, 5, 5));
-		Font font=new Font(tabbedPane.getFont().getName(), Font.PLAIN, PosUIManager.getDefaultFontSize()); 
+		Font font = new Font(tabbedPane.getFont().getName(), Font.PLAIN, PosUIManager.getDefaultFontSize());
 		tabbedPane.setFont(font);
 
 		getContentPane().setLayout(new java.awt.BorderLayout(5, 0));

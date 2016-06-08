@@ -23,6 +23,9 @@
 
 package com.floreantpos.ui.model;
 
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -47,7 +50,7 @@ import com.floreantpos.util.POSUtil;
  *
  * @author  MShahriar
  */
-public class OrderTypeForm extends BeanEditor {
+public class OrderTypeForm extends BeanEditor implements ItemListener {
 
 	private JLabel jLabel1;
 	private FixedLengthTextField tfName;
@@ -57,9 +60,8 @@ public class OrderTypeForm extends BeanEditor {
 	private JCheckBox chkShouldPrintToKitchen;
 	private JCheckBox chkCloseOnPaid;
 	private JCheckBox chkPrepaid;
+	private JCheckBox chkDelivery;
 	private JCheckBox chkRequiredCustomerData;
-	private JCheckBox chkRequiredDeliveryData;
-	private JCheckBox chkAssignDriver;
 	private JCheckBox chkShowItemBarcode;
 	private JCheckBox chkShowInLoginScreen;
 	private JCheckBox chkConsolidateItemsInReceipt;
@@ -74,6 +76,7 @@ public class OrderTypeForm extends BeanEditor {
 
 	public OrderTypeForm() throws Exception {
 		this(new OrderType());
+		initHandler();
 	}
 
 	public OrderTypeForm(OrderType orderType) throws Exception {
@@ -81,6 +84,7 @@ public class OrderTypeForm extends BeanEditor {
 		initComponents();
 
 		setBean(orderType);
+		initHandler();
 	}
 
 	public String getDisplayText() {
@@ -89,6 +93,11 @@ public class OrderTypeForm extends BeanEditor {
 			return POSConstants.ORDER_TYPE;
 		}
 		return POSConstants.ORDER_TYPE;
+	}
+
+	private void initHandler() {
+		chkRequiredCustomerData.addItemListener(this);
+		chkDelivery.addItemListener(this);
 	}
 
 	private void initComponents() {
@@ -105,9 +114,8 @@ public class OrderTypeForm extends BeanEditor {
 		chkShouldPrintToKitchen = new JCheckBox(Messages.getString("OrderTypeForm.3")); //$NON-NLS-1$
 		chkCloseOnPaid = new JCheckBox(Messages.getString("OrderTypeForm.4")); //$NON-NLS-1$
 		chkPrepaid = new JCheckBox(Messages.getString("OrderTypeForm.5")); //$NON-NLS-1$
+		chkDelivery = new JCheckBox("Delivery"); //$NON-NLS-1$
 		chkRequiredCustomerData = new JCheckBox(Messages.getString("OrderTypeForm.6")); //$NON-NLS-1$
-		chkRequiredDeliveryData = new JCheckBox(Messages.getString("OrderTypeForm.7")); //$NON-NLS-1$
-		chkAssignDriver = new JCheckBox(Messages.getString("OrderTypeForm.8")); //$NON-NLS-1$
 		chkShowItemBarcode = new JCheckBox(Messages.getString("OrderTypeForm.9")); //$NON-NLS-1$
 		chkShowInLoginScreen = new JCheckBox(Messages.getString("OrderTypeForm.10")); //$NON-NLS-1$
 		chkConsolidateItemsInReceipt = new JCheckBox(Messages.getString("OrderTypeForm.11")); //$NON-NLS-1$
@@ -128,16 +136,15 @@ public class OrderTypeForm extends BeanEditor {
 		OrderServiceExtension orderServiceExtension = (OrderServiceExtension) ExtensionManager.getPlugin(OrderServiceExtension.class);
 		generalPanel.add(chkRequiredCustomerData, "cell 1 7,alignx left,aligny top"); //$NON-NLS-1$
 		if (orderServiceExtension != null) {
-			generalPanel.add(chkRequiredDeliveryData, "cell 1 8,alignx left,aligny top"); //$NON-NLS-1$
-			generalPanel.add(chkAssignDriver, "cell 1 9,alignx left,aligny top"); //$NON-NLS-1$
+			generalPanel.add(chkDelivery, "cell 1 8,alignx left,aligny top"); //$NON-NLS-1$
 		}
-		generalPanel.add(chkShowItemBarcode, "cell 1 10,alignx left,aligny top"); //$NON-NLS-1$
-		generalPanel.add(chkShowInLoginScreen, "cell 1 11,alignx left,aligny top"); //$NON-NLS-1$
-		generalPanel.add(chkConsolidateItemsInReceipt, "cell 1 12,alignx left,aligny top"); //$NON-NLS-1$
-		generalPanel.add(chkHideItemWithEmptyInventory, "cell 1 13,alignx left,aligny top"); //$NON-NLS-1$
-		generalPanel.add(chkHasForHereAndToGo, "cell 1 14,alignx left,aligny top"); //$NON-NLS-1$
-		generalPanel.add(chkBarTab, "cell 1 15,alignx left,aligny top"); //$NON-NLS-1$
-		generalPanel.add(chkPreAuthCreditCard, "cell 1 16,alignx left,aligny top"); //$NON-NLS-1$
+		generalPanel.add(chkShowItemBarcode, "cell 1 11,alignx left,aligny top"); //$NON-NLS-1$
+		generalPanel.add(chkShowInLoginScreen, "cell 1 12,alignx left,aligny top"); //$NON-NLS-1$
+		generalPanel.add(chkConsolidateItemsInReceipt, "cell 1 13,alignx left,aligny top"); //$NON-NLS-1$
+		generalPanel.add(chkHideItemWithEmptyInventory, "cell 1 14,alignx left,aligny top"); //$NON-NLS-1$
+		generalPanel.add(chkHasForHereAndToGo, "cell 1 15,alignx left,aligny top"); //$NON-NLS-1$
+		generalPanel.add(chkBarTab, "cell 1 16,alignx left,aligny top"); //$NON-NLS-1$
+		generalPanel.add(chkPreAuthCreditCard, "cell 1 17,alignx left,aligny top"); //$NON-NLS-1$
 
 		add(generalPanel);
 	}
@@ -162,9 +169,8 @@ public class OrderTypeForm extends BeanEditor {
 			chkShouldPrintToKitchen.setSelected(ordersType.isShouldPrintToKitchen());
 			chkPrepaid.setSelected(ordersType.isPrepaid());
 			chkCloseOnPaid.setSelected(ordersType.isCloseOnPaid());
+			chkDelivery.setSelected(ordersType.isDelivery());
 			chkRequiredCustomerData.setSelected(ordersType.isRequiredCustomerData());
-			chkRequiredDeliveryData.setSelected(ordersType.isRequiredDeliveryData());
-			chkAssignDriver.setSelected(ordersType.isAssignDriver());
 			chkShowItemBarcode.setSelected(ordersType.isShowItemBarcode());
 			chkShowInLoginScreen.setSelected(ordersType.isShowInLoginScreen());
 			chkConsolidateItemsInReceipt.setSelected(ordersType.isConsolidateItemsInReceipt());
@@ -195,9 +201,8 @@ public class OrderTypeForm extends BeanEditor {
 			ordersType.setShouldPrintToKitchen(chkShouldPrintToKitchen.isSelected());
 			ordersType.setPrepaid(chkPrepaid.isSelected());
 			ordersType.setCloseOnPaid(chkCloseOnPaid.isSelected());
+			ordersType.setDelivery(chkDelivery.isSelected());
 			ordersType.setRequiredCustomerData(chkRequiredCustomerData.isSelected());
-			ordersType.setRequiredDeliveryData(chkRequiredDeliveryData.isSelected());
-			ordersType.setAssignDriver(chkAssignDriver.isSelected());
 			ordersType.setShowItemBarcode(chkShowItemBarcode.isSelected());
 			ordersType.setShowInLoginScreen(chkShowInLoginScreen.isSelected());
 			ordersType.setConsolidateItemsInReceipt(chkConsolidateItemsInReceipt.isSelected());
@@ -227,6 +232,20 @@ public class OrderTypeForm extends BeanEditor {
 		} catch (Exception x) {
 			MessageDialog.showError(x);
 			return false;
+		}
+	}
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		JCheckBox chkBox = (JCheckBox) e.getItem();
+		if (chkBox == chkDelivery) {
+			if (chkDelivery.isSelected()) {
+				chkRequiredCustomerData.setSelected(true);
+				chkRequiredCustomerData.setEnabled(false);
+			}
+			else {
+				chkRequiredCustomerData.setEnabled(true);
+			}
 		}
 	}
 }

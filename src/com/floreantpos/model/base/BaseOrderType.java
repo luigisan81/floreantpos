@@ -15,25 +15,24 @@ import java.io.Serializable;
 
 public abstract class BaseOrderType  implements Comparable, Serializable {
 
-	public static String REF = "OrderType"; //$NON-NLS-1$
-	public static String PROP_PRE_AUTH_CREDIT_CARD = "preAuthCreditCard"; //$NON-NLS-1$
-	public static String PROP_ENABLED = "enabled"; //$NON-NLS-1$
-	public static String PROP_REQUIRED_DELIVERY_DATA = "requiredDeliveryData"; //$NON-NLS-1$
-	public static String PROP_CONSOLIDATE_ITEMS_IN_RECEIPT = "consolidateItemsInReceipt"; //$NON-NLS-1$
-	public static String PROP_REQUIRED_CUSTOMER_DATA = "requiredCustomerData"; //$NON-NLS-1$
-	public static String PROP_SHOW_IN_LOGIN_SCREEN = "showInLoginScreen"; //$NON-NLS-1$
-	public static String PROP_NAME = "name"; //$NON-NLS-1$
-	public static String PROP_SHOW_TABLE_SELECTION = "showTableSelection"; //$NON-NLS-1$
-	public static String PROP_SHOULD_PRINT_TO_KITCHEN = "shouldPrintToKitchen"; //$NON-NLS-1$
-	public static String PROP_CLOSE_ON_PAID = "closeOnPaid"; //$NON-NLS-1$
-	public static String PROP_BAR_TAB = "barTab"; //$NON-NLS-1$
-	public static String PROP_SHOW_ITEM_BARCODE = "showItemBarcode"; //$NON-NLS-1$
-	public static String PROP_SHOW_GUEST_SELECTION = "showGuestSelection"; //$NON-NLS-1$
-	public static String PROP_ID = "id"; //$NON-NLS-1$
-	public static String PROP_HIDE_ITEM_WITH_EMPTY_INVENTORY = "hideItemWithEmptyInventory"; //$NON-NLS-1$
-	public static String PROP_HAS_FOR_HERE_AND_TO_GO = "hasForHereAndToGo"; //$NON-NLS-1$
-	public static String PROP_ASSIGN_DRIVER = "assignDriver"; //$NON-NLS-1$
-	public static String PROP_PREPAID = "prepaid"; //$NON-NLS-1$
+	public static String REF = "OrderType";
+	public static String PROP_PRE_AUTH_CREDIT_CARD = "preAuthCreditCard";
+	public static String PROP_ENABLED = "enabled";
+	public static String PROP_DELIVERY = "delivery";
+	public static String PROP_REQUIRED_CUSTOMER_DATA = "requiredCustomerData";
+	public static String PROP_CONSOLIDATE_ITEMS_IN_RECEIPT = "consolidateItemsInReceipt";
+	public static String PROP_SHOW_IN_LOGIN_SCREEN = "showInLoginScreen";
+	public static String PROP_NAME = "name";
+	public static String PROP_SHOW_TABLE_SELECTION = "showTableSelection";
+	public static String PROP_SHOULD_PRINT_TO_KITCHEN = "shouldPrintToKitchen";
+	public static String PROP_CLOSE_ON_PAID = "closeOnPaid";
+	public static String PROP_BAR_TAB = "barTab";
+	public static String PROP_SHOW_ITEM_BARCODE = "showItemBarcode";
+	public static String PROP_SHOW_GUEST_SELECTION = "showGuestSelection";
+	public static String PROP_ID = "id";
+	public static String PROP_HIDE_ITEM_WITH_EMPTY_INVENTORY = "hideItemWithEmptyInventory";
+	public static String PROP_HAS_FOR_HERE_AND_TO_GO = "hasForHereAndToGo";
+	public static String PROP_PREPAID = "prepaid";
 
 
 	// constructors
@@ -79,8 +78,7 @@ public abstract class BaseOrderType  implements Comparable, Serializable {
 		protected java.lang.Boolean prepaid;
 		protected java.lang.Boolean closeOnPaid;
 		protected java.lang.Boolean requiredCustomerData;
-		protected java.lang.Boolean requiredDeliveryData;
-		protected java.lang.Boolean assignDriver;
+		protected java.lang.Boolean delivery;
 		protected java.lang.Boolean showItemBarcode;
 		protected java.lang.Boolean showInLoginScreen;
 		protected java.lang.Boolean consolidateItemsInReceipt;
@@ -88,9 +86,6 @@ public abstract class BaseOrderType  implements Comparable, Serializable {
 		protected java.lang.Boolean hasForHereAndToGo;
 		protected java.lang.Boolean preAuthCreditCard;
 		protected java.lang.Boolean barTab;
-
-	// collections
-	private java.util.List<String> orderSubTypes;
 
 
 
@@ -253,35 +248,18 @@ public abstract class BaseOrderType  implements Comparable, Serializable {
 
 
 	/**
-	 * Return the value associated with the column: REQUIRED_DELIVERY_DATA
+	 * Return the value associated with the column: DELIVERY
 	 */
-	public java.lang.Boolean isRequiredDeliveryData () {
-								return requiredDeliveryData == null ? Boolean.FALSE : requiredDeliveryData;
+	public java.lang.Boolean isDelivery () {
+								return delivery == null ? Boolean.FALSE : delivery;
 					}
 
 	/**
-	 * Set the value related to the column: REQUIRED_DELIVERY_DATA
-	 * @param requiredDeliveryData the REQUIRED_DELIVERY_DATA value
+	 * Set the value related to the column: DELIVERY
+	 * @param delivery the DELIVERY value
 	 */
-	public void setRequiredDeliveryData (java.lang.Boolean requiredDeliveryData) {
-		this.requiredDeliveryData = requiredDeliveryData;
-	}
-
-
-
-	/**
-	 * Return the value associated with the column: ASSIGN_DRIVER
-	 */
-	public java.lang.Boolean isAssignDriver () {
-								return assignDriver == null ? Boolean.FALSE : assignDriver;
-					}
-
-	/**
-	 * Set the value related to the column: ASSIGN_DRIVER
-	 * @param assignDriver the ASSIGN_DRIVER value
-	 */
-	public void setAssignDriver (java.lang.Boolean assignDriver) {
-		this.assignDriver = assignDriver;
+	public void setDelivery (java.lang.Boolean delivery) {
+		this.delivery = delivery;
 	}
 
 
@@ -405,23 +383,6 @@ public abstract class BaseOrderType  implements Comparable, Serializable {
 
 
 
-	/**
-	 * Return the value associated with the column: orderSubTypes
-	 */
-	public java.util.List<String> getOrderSubTypes () {
-					return orderSubTypes;
-			}
-
-	/**
-	 * Set the value related to the column: orderSubTypes
-	 * @param orderSubTypes the orderSubTypes value
-	 */
-	public void setOrderSubTypes (java.util.List<String> orderSubTypes) {
-		this.orderSubTypes = orderSubTypes;
-	}
-
-
-
 
 
 	public boolean equals (Object obj) {
@@ -438,7 +399,7 @@ public abstract class BaseOrderType  implements Comparable, Serializable {
 		if (Integer.MIN_VALUE == this.hashCode) {
 			if (null == this.getId()) return super.hashCode();
 			else {
-				String hashStr = this.getClass().getName() + ":" + this.getId().hashCode(); //$NON-NLS-1$
+				String hashStr = this.getClass().getName() + ":" + this.getId().hashCode();
 				this.hashCode = hashStr.hashCode();
 			}
 		}

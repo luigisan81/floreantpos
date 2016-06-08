@@ -24,6 +24,7 @@ import javax.swing.JMenu;
 import javax.swing.JOptionPane;
 
 import com.floreantpos.Messages;
+import com.floreantpos.config.ui.ConfigurationDialog;
 import com.floreantpos.customer.CustomerSelector;
 import com.floreantpos.extension.OrderServiceExtension;
 import com.floreantpos.main.Application;
@@ -33,6 +34,7 @@ import com.floreantpos.model.ShopTable;
 import com.floreantpos.model.Ticket;
 import com.floreantpos.model.dao.TicketDAO;
 import com.floreantpos.ui.dialog.POSMessageDialog;
+import com.floreantpos.ui.views.IView;
 import com.floreantpos.util.POSUtil;
 import com.floreantpos.util.PosGuiUtil;
 import com.floreantpos.util.TicketAlreadyExistsException;
@@ -147,12 +149,33 @@ public class DefaultOrderServiceExtension implements OrderServiceExtension {
 	}
 
 	@Override
+	public void initConfigurationView(ConfigurationDialog dialog) {
+
+	}
+
+	@Override
 	public String getId() {
 		return String.valueOf("DefaultOrderServiceExtension".hashCode()); //$NON-NLS-1$
 	}
 
 	@Override
-	public CustomerSelector createCustomerSelector() {
+	public IView getDeliveryDispatchView(OrderType orderType) {
+		return null; 
+	}
+
+	@Override
+	public CustomerSelector createNewCustomerSelector() {
 		return null;
 	}
+
+	@Override
+	public CustomerSelector createCustomerSelectorView() {
+		return null;
+	}
+
+	@Override
+	public void openDeliveryDispatchDialog(OrderType orderType) {
+		
+	}
+
 }

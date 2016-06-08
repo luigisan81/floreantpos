@@ -360,8 +360,11 @@ public class POSConstants {
 	public static final String ITEM_EXPLORER = Messages.getString("PosMessage.261"); //$NON-NLS-1$
 	public static final String COPY = Messages.getString("PosMessage.262"); //$NON-NLS-1$
 	public static final String ALL = Messages.getString("PosMessage.263"); //$NON-NLS-1$
+	public static final String TODAY = Messages.getString("TODAY"); //$NON-NLS-1$
+	public static final String TOMORROW = Messages.getString("TOMORROW"); //$NON-NLS-1$
 	public static final String PAY_TIPS = Messages.getString("PosMessage.264"); //$NON-NLS-1$
 	public static final String COOKING_INSTRUCTIONS = Messages.getString("PosMessage.265"); //$NON-NLS-1$
+	public static final String BUMP = Messages.getString("BUMP"); //$NON-NLS-1$
 	public static final String LAST_NAME = Messages.getString("PosMessage.266"); //$NON-NLS-1$
 	public static final String TYPE_NAME = Messages.getString("PosMessage.267"); //$NON-NLS-1$
 	public static final String ORDER_TYPE = Messages.getString("ORDER_TYPE"); //$NON-NLS-1$
@@ -459,6 +462,7 @@ public class POSConstants {
 	public static final String CONFIG_TAB_RESTAURANT = Messages.getString("CONFIG_TAB_RESTAURANT"); //$NON-NLS-1$
 	public static final String CONFIG_TAB_TAX = Messages.getString("CONFIG_TAB_TAX"); //$NON-NLS-1$
 	public static final String CONFIG_TAB_PRINT = Messages.getString("CONFIG_TAB_PRINT"); //$NON-NLS-1$
+	public static final String CONFIG_TAB_DELIVERY = Messages.getString("CONFIG_TAB_DELIVERY"); //$NON-NLS-1$
 
 	public static final String RECEIPT_REPORT_TERMINAL_LABEL = Messages.getString("RECEIPT_REPORT_TERMINAL_LABEL"); //$NON-NLS-1$
 	public static final String RECEIPT_REPORT_TICKET_NO_LABEL = Messages.getString("RECEIPT_REPORT_TICKET_NO_LABEL"); //$NON-NLS-1$
@@ -474,6 +478,7 @@ public class POSConstants {
 	public static final String RECEIPT_REPORT_DISCOUNT_LABEL = Messages.getString("RECEIPT_REPORT_DISCOUNT_LABEL"); //$NON-NLS-1$
 	public static final String RECEIPT_REPORT_TAX_LABEL = Messages.getString("RECEIPT_REPORT_TAX_LABEL"); //$NON-NLS-1$
 	public static final String RECEIPT_REPORT_SERVICE_CHARGE_LABEL = Messages.getString("RECEIPT_REPORT_SERVICE_CHARGE_LABEL"); //$NON-NLS-1$
+	public static final String RECEIPT_REPORT_DELIVERY_CHARGE_LABEL = Messages.getString("RECEIPT_REPORT_DELIVERY_CHARGE_LABEL"); //$NON-NLS-1$
 	public static final String RECEIPT_REPORT_TIPS_LABEL = Messages.getString("RECEIPT_REPORT_TIPS_LABEL"); //$NON-NLS-1$
 	public static final String RECEIPT_REPORT_NETAMOUNT_LABEL = Messages.getString("RECEIPT_REPORT_NETAMOUNT_LABEL"); //$NON-NLS-1$
 	public static final String RECEIPT_REPORT_PAIDAMOUNT_LABEL = Messages.getString("RECEIPT_REPORT_PAIDAMOUNT_LABEL"); //$NON-NLS-1$

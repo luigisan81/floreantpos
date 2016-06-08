@@ -58,6 +58,7 @@ import com.floreantpos.model.RefundTransaction;
 import com.floreantpos.model.Restaurant;
 import com.floreantpos.model.TerminalPrinters;
 import com.floreantpos.model.Ticket;
+import com.floreantpos.model.User;
 import com.floreantpos.model.VirtualPrinter;
 import com.floreantpos.model.dao.KitchenTicketDAO;
 import com.floreantpos.model.dao.RestaurantDAO;
@@ -74,6 +75,7 @@ public class ReceiptPrintService {
 	public static final String PROP_PRINTER_NAME = "printerName"; //$NON-NLS-1$
 	private static final String TIP_AMOUNT = "tipAmount"; //$NON-NLS-1$
 	private static final String SERVICE_CHARGE = "serviceCharge"; //$NON-NLS-1$
+	private static final String DELIVERY_CHARGE = "deliveryCharge"; //$NON-NLS-1$
 	private static final String TAX_AMOUNT = "taxAmount"; //$NON-NLS-1$
 	private static final String DISCOUNT_AMOUNT = "discountAmount"; //$NON-NLS-1$
 	private static final String HEADER_LINE5 = "headerLine5"; //$NON-NLS-1$
@@ -98,6 +100,9 @@ public class ReceiptPrintService {
 	private static Log logger = LogFactory.getLog(ReceiptPrintService.class);
 
 	private static final SimpleDateFormat reportDateFormat = new SimpleDateFormat("M/d/yy, h:m a"); //$NON-NLS-1$
+
+	public static final String CUSTOMER_COPY = "Customer Copy";
+	public static final String DRIVER_COPY = "Driver Copy";
 
 	public static void printGenericReport(String title, String data) throws Exception {
 		HashMap<String, String> map = new HashMap<String, String>(2);
@@ -154,6 +159,53 @@ public class ReceiptPrintService {
 			TicketPrintProperties printProperties = new TicketPrintProperties("*** ORDER " + ticket.getId() + " ***", false, true, true); //$NON-NLS-1$ //$NON-NLS-2$
 			printProperties.setPrintCookingInstructions(false);
 			HashMap map = populateTicketProperties(ticket, printProperties, null);
+
+			List<TerminalPrinters> terminalPrinters = TerminalPrintersDAO.getInstance().findTerminalPrinters();
+
+			List<Printer> activeReceiptPrinters = new ArrayList<Printer>();
+
+			for (TerminalPrinters terminalPrinters2 : terminalPrinters) {
+
+				int printerType = terminalPrinters2.getVirtualPrinter().getType();
+
+				if (printerType == VirtualPrinter.RECEIPT) {
+
+					Printer printer = new Printer(terminalPrinters2.getVirtualPrinter(), terminalPrinters2.getPrinterName());
+					activeReceiptPrinters.add(printer);
+				}
+			}
+
+			if (activeReceiptPrinters == null || activeReceiptPrinters.isEmpty()) {
+
+				JasperPrint jasperPrint = createPrint(ticket, map, null);
+				jasperPrint.setName(ORDER_ + ticket.getId());
+				jasperPrint.setProperty(PROP_PRINTER_NAME, Application.getPrinters().getReceiptPrinter());
+				printQuitely(jasperPrint);
+
+			}
+			else {
+
+				for (Printer activeReceiptPrinter : activeReceiptPrinters) {
+
+					JasperPrint jasperPrint = createPrint(ticket, map, null);
+					jasperPrint.setName(ORDER_ + ticket.getId() + activeReceiptPrinter.getDeviceName());
+					jasperPrint.setProperty(PROP_PRINTER_NAME, activeReceiptPrinter.getDeviceName());
+					printQuitely(jasperPrint);
+				}
+
+			}
+		} catch (Exception e) {
+			logger.error(com.floreantpos.POSConstants.PRINT_ERROR, e);
+		}
+	}
+
+	public static void printTicket(Ticket ticket, String copyType) {
+		try {
+			TicketPrintProperties printProperties = new TicketPrintProperties("*** ORDER " + ticket.getId() + " ***", false, true, true); //$NON-NLS-1$ //$NON-NLS-2$
+			printProperties.setPrintCookingInstructions(false);
+			HashMap map = populateTicketProperties(ticket, printProperties, null);
+			map.put("copyType", copyType); //$NON-NLS-1$
+			map.put("cardPayment", true); //$NON-NLS-1$
 
 			List<TerminalPrinters> terminalPrinters = TerminalPrintersDAO.getInstance().findTerminalPrinters();
 
@@ -366,6 +418,10 @@ public class ReceiptPrintService {
 				map.put(SERVICE_CHARGE, NumberUtil.formatNumber(ticket.getServiceCharge()));
 			}
 
+			if (ticket.getDeliveryCharge() > 0.0) {
+				map.put(DELIVERY_CHARGE, NumberUtil.formatNumber(ticket.getDeliveryCharge()));
+			}
+
 			if (ticket.getGratuity() != null) {
 				tipAmount = ticket.getGratuity().getAmount();
 				map.put(TIP_AMOUNT, NumberUtil.formatNumber(tipAmount));
@@ -375,6 +431,7 @@ public class ReceiptPrintService {
 			map.put("discountText", POSConstants.RECEIPT_REPORT_DISCOUNT_LABEL + currencySymbol); //$NON-NLS-1$
 			map.put("taxText", POSConstants.RECEIPT_REPORT_TAX_LABEL + currencySymbol); //$NON-NLS-1$
 			map.put("serviceChargeText", POSConstants.RECEIPT_REPORT_SERVICE_CHARGE_LABEL + currencySymbol); //$NON-NLS-1$
+			map.put("deliveryChargeText", POSConstants.RECEIPT_REPORT_DELIVERY_CHARGE_LABEL + currencySymbol); //$NON-NLS-1$
 			map.put("tipsText", POSConstants.RECEIPT_REPORT_TIPS_LABEL + currencySymbol); //$NON-NLS-1$
 			map.put("netAmountText", POSConstants.RECEIPT_REPORT_NETAMOUNT_LABEL + currencySymbol); //$NON-NLS-1$
 			map.put("paidAmountText", POSConstants.RECEIPT_REPORT_PAIDAMOUNT_LABEL + currencySymbol); //$NON-NLS-1$
@@ -480,6 +537,23 @@ public class ReceiptPrintService {
 		beginRow(ticketHeaderBuilder);
 		addColumn(ticketHeaderBuilder, ""); //$NON-NLS-1$
 		endRow(ticketHeaderBuilder);
+
+		User driver = ticket.getAssignedDriver();
+		if (driver != null) {
+			beginRow(ticketHeaderBuilder);
+			addColumn(ticketHeaderBuilder, "*Driver*"); //$NON-NLS-1$ //$NON-NLS-2$
+			endRow(ticketHeaderBuilder);
+
+			if (StringUtils.isNotEmpty(driver.getFullName())) {
+				beginRow(ticketHeaderBuilder);
+				addColumn(ticketHeaderBuilder, driver.getFullName());
+				endRow(ticketHeaderBuilder);
+			}
+
+			beginRow(ticketHeaderBuilder);
+			addColumn(ticketHeaderBuilder, ""); //$NON-NLS-1$
+			endRow(ticketHeaderBuilder);
+		}
 
 		//customer info section
 		if (orderType.isRequiredCustomerData()) {

@@ -74,6 +74,10 @@ public class TerminalConfig {
 	private static final String ACTIVE_CUSTOMER_DISPLAY = "active_customer_display";//$NON-NLS-1$
 
 	private static final String ACTIVE_SCALE_DISPLAY = "active_scale_display";//$NON-NLS-1$
+	
+	private static final String ACTIVE_CALLER_ID_DEVICE = "active_caller_id_device";//$NON-NLS-1$
+
+	private static final String CALLER_ID_DEVICE = "caller_id_device";//$NON-NLS-1$
 
 	static final String TERMINAL_ID = "terminal_id"; //$NON-NLS-1$
 	static final String FULLSCREEN_MODE = "fullscreen_mode"; //$NON-NLS-1$
@@ -229,6 +233,14 @@ public class TerminalConfig {
 	public static boolean isShowBarcodeOnReceipt() {
 		return config.getBoolean(SHOW_BARCODE_ON_RECEIPT, false);
 	}
+	
+	public static void setEnabledCallerIdDevice(boolean show) {
+		config.setProperty(ACTIVE_CALLER_ID_DEVICE, show);
+	}
+
+	public static boolean isEanbledCallerIdDevice() {
+		return config.getBoolean(ACTIVE_CALLER_ID_DEVICE, false);
+	}
 
 	public static void setGroupKitchenReceiptItems(boolean group) {
 		config.setProperty(GROUP_KITCHEN_ITEMS_ON_RECEIPT, group);
@@ -296,6 +308,14 @@ public class TerminalConfig {
 
 	public static void setOrderTypeFilter(String filter) {
 		config.setProperty(ORDER_TYPE_FILTER, filter);
+	}
+
+	public static String getCallerIdDevice() {
+		return config.getString(CALLER_ID_DEVICE, "NONE");
+	}
+
+	public static void setCallerIdDevice(String device) {
+		config.setProperty(CALLER_ID_DEVICE, device);
 	}
 
 	public static PaymentStatusFilter getPaymentStatusFilter() {
